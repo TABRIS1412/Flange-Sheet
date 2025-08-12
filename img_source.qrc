@@ -1,0 +1,39 @@
+<RCC>
+  <qresource prefix="img_bmp_flange">
+    <file>img/bmp2/flange/623法兰.bmp</file>
+    <file>img/bmp2/flange/容器法兰.bmp</file>
+    <file>img/bmp2/flange/容器法兰-凹凸面2.bmp</file>
+    <file>img/bmp2/flange/容器法兰-平面.bmp</file>
+    <file>img/bmp2/flange/容器法兰-榫槽面.bmp</file>
+    <file>img/bmp2/flange/623法兰盖.bmp</file>
+    <file>img/bmp2/flange/BL法兰盖.bmp</file>
+    <file>img/bmp2/flange/IF整体法兰.bmp</file>
+    <file>img/bmp2/flange/LWN-长高颈.bmp</file>
+    <file>img/bmp2/flange/PJRJ平焊环松套.bmp</file>
+    <file>img/bmp2/flange/PJSE对焊环松套592.bmp</file>
+    <file>img/bmp2/flange/PJSE对焊环松套615.bmp</file>
+    <file>img/bmp2/flange/PL板式平焊.bmp</file>
+    <file>img/bmp2/flange/SO-带颈平焊.bmp</file>
+    <file>img/bmp2/flange/SW承插焊.bmp</file>
+    <file>img/bmp2/flange/Th螺纹.bmp</file>
+    <file>img/bmp2/flange/WN-带颈对焊.bmp</file>
+  </qresource>
+  <qresource prefix="ico">
+    <file>img/ico/fla_16.ico</file>
+    <file>img/ico/fla_32.ico</file>
+    <file>img/ico/fla_48.ico</file>
+    <file>img/ico/fla_64.ico</file>
+    <file>img/ico/fla_128.ico</file>
+    <file>img/ico/fla_256.ico</file>
+    <file>img/ico/fla_512.ico</file>
+  </qresource>
+  <qresource prefix="img_bmp_mfm">
+    <file>img/bmp2/mfm/mfm_凹凸面.bmp</file>
+    <file>img/bmp2/mfm/mfm_环连接面.bmp</file>
+    <file>img/bmp2/mfm/mfm_突面.bmp</file>
+    <file>img/bmp2/mfm/mfm_楔槽面.bmp</file>
+  </qresource>
+  <qresource prefix="img_bmp_pipe">
+    <file>img/bmp2/thin/pipe.bmp</file>
+  </qresource>
+</RCC>
