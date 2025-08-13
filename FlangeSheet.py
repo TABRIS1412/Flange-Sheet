@@ -68,6 +68,11 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
         t_std_list = ['HG20533(Ia)系列', 'GB12459/GBT13401<AB系列>', 'ANSI B36.10M、B36.19M<A>', 'HGJ514<无缝管><B>_供参考', 'HGJ528Ⅱ系列<有缝管><B>_供参考']
         self.cB_t_std.addItems(t_std_list)
         self.cB_t_std.setCurrentIndex(0)
+        
+        # 使用QGraphicsRotation实现旋转效果（最简单的方法）
+        rotation = QtWidgets.QGraphicsRotation()
+        rotation.setAngle(-30)
+        self.lbs_wn_d.setGraphicsEffect(rotation)
 
         # mfm_list = ['突面<RF>', '凹凸面<FM_M>', '榫槽面<T_G>', '全平面<FF>', '环面R_J' ]
         # self.cB_mfm.addItems(mfm_list)
@@ -665,7 +670,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         a1ab = str(self.a_flange.sizex.iloc[0].at['A1_A']) \
                               + '(' + str(self.a_flange.sizex.iloc[0].at['A1_B']) + ')'
                         self.lbs_wn_A1AB.setText(a1ab)
-
+ 
                         # self.lbs_wn_s.setText(str(self.a_flange.sizex.iloc[0].at['S_min']))
                     except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
                         self.lbs_wn_k.setText("-")
@@ -1342,12 +1347,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                 or self.cB_t_std.currentText() == 'HG20533(Ia)系列':
             self.tW_t.setCurrentIndex(0)
 
-    def openUrl(self):
-        url = "www.flangesheet.com"
-        try:
-            webbrowser.get('chrome').open_new_tab(url)
-        except:
-            webbrowser.open_new_tab(url)
+
 
 
 if __name__ == "__main__":
