@@ -1,6 +1,9 @@
 import sys
+import os
+# 添加当前目录到系统路径中，确保能正确导入flangeWindow模块
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 try:
-    from PyQt5.QtWidgets import QApplication, QMainWindow
+    from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 except ImportError:
     print("=" * 60)
     print("错误：未找到 PyQt5 库")
@@ -21,6 +24,29 @@ import pandas as pd
 from pathlib import Path as pth
 import webbrowser
 import flangeWindow
+from datetime import datetime
+import json
+from cryptography.fernet import Fernet
+import hashlib
+import uuid
+
+# 导入资源文件
+try:
+    import img_source_rc
+except ImportError:
+    print("警告：无法导入资源文件 img_source_rc.py")
+    print("这可能导致界面中的图片无法正常显示")
+
+
+def get_machine_code():
+    """
+    生成本机机器码（基于硬件信息）
+    与registration_key_validator.py中的方法保持一致
+    """
+    # 使用MAC地址和一些其他信息作为示例硬件信息
+    mac = uuid.getnode()
+    machine_code = hashlib.md5(str(mac).encode('utf-8')).hexdigest()
+    return machine_code
 
 
 class FlangePiece:
@@ -61,18 +87,14 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
         super(FlangeWindow, self).__init__(parent)
         self.setupUi(self)
 
-        std_list = ['HGT20592<PN系列>', 'HGT20615<class系列>', 'HGT20623<大直径>', 'NBT47023<容器法兰>']
+        std_list = ['HGT20592<PN系列>']
+        # , 'HGT20615<class系列>', 'HGT20623<大直径>', 'NBT47023<容器法兰>'
         self.cB_std.addItems(std_list)
         self.cB_std.setCurrentIndex(-1)
 
         t_std_list = ['HG20533(Ia)系列', 'GB12459/GBT13401<AB系列>', 'ANSI B36.10M、B36.19M<A>', 'HGJ514<无缝管><B>_供参考', 'HGJ528Ⅱ系列<有缝管><B>_供参考']
         self.cB_t_std.addItems(t_std_list)
         self.cB_t_std.setCurrentIndex(0)
-        
-        # 使用QGraphicsRotation实现旋转效果（最简单的方法）
-        rotation = QtWidgets.QGraphicsRotation()
-        rotation.setAngle(-30)
-        self.lbs_wn_d.setGraphicsEffect(rotation)
 
         # mfm_list = ['突面<RF>', '凹凸面<FM_M>', '榫槽面<T_G>', '全平面<FF>', '环面R_J' ]
         # self.cB_mfm.addItems(mfm_list)
@@ -645,6 +667,9 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
 
     def buid_flange_piece(self):
 
+        # 初始化所有标签为默认值，确保每次更新时旧值被清除
+ #       self._clear_all_labels()
+
         if self.cB_std.currentIndex() != -1 and self.cB_tp.currentIndex() != -1 \
                and self.cB_dn.currentIndex() != -1 and self.cB_pn.currentIndex() != -1:
             try:
@@ -670,7 +695,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         a1ab = str(self.a_flange.sizex.iloc[0].at['A1_A']) \
                               + '(' + str(self.a_flange.sizex.iloc[0].at['A1_B']) + ')'
                         self.lbs_wn_A1AB.setText(a1ab)
- 
+
                         # self.lbs_wn_s.setText(str(self.a_flange.sizex.iloc[0].at['S_min']))
                     except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
                         self.lbs_wn_k.setText("-")
@@ -1232,6 +1257,118 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
         except:
             self.cB_t_sch.setCurrentIndex(0)
 
+    # def _clear_all_labels(self):
+    #     """清除所有标签的值，确保不会显示上次的结果"""
+    #     # WN标签
+    #     self.lbs_wn_k.setText("-")
+    #     self.lbs_wn_c.setText('-')
+    #     self.lbs_wn_d.setText('-')
+    #     self.lbs_wn_h.setText('-')
+    #     self.lbs_wn_nl.setText('-')
+    #     self.lbs_wn_NAB.setText('-')
+    #     self.lbs_wn_A1AB.setText('-')
+        
+    #     # SO标签
+    #     self.lbs_so_K.setText('-')
+    #     self.lbs_so_C.setText('-')
+    #     self.lbs_so_D.setText('-')
+    #     self.lbs_so_H.setText('-')
+    #     self.lbs_so_nl.setText('-')
+    #     self.lbs_so_NAB.setText('-')
+    #     self.lbs_so_B1_AB.setText('-')
+        
+    #     # SW标签
+    #     self.lbs_sw_K.setText('-')
+    #     self.lbs_sw_C.setText('-')
+    #     self.lbs_sw_D.setText('-')
+    #     self.lbs_sw_H.setText('-')
+    #     self.lbs_sw_U.setText('-')
+    #     self.lbs_sw_N.setText('-')
+    #     self.lbs_sw_B2.setText('-')
+    #     self.lbs_sw_nl.setText('-')
+        
+    #     # PL标签
+    #     self.lbs_pl_K.setText('-')
+    #     self.lbs_pl_C.setText('-')
+    #     self.lbs_pl_D.setText('-')
+    #     self.lbs_pl_N.setText('-')
+    #     self.lbs_pl_nl.setText('-')
+        
+    #     # BL标签
+    #     self.lbs_bl_K.setText('-')
+    #     self.lbs_bl_C.setText('-')
+    #     self.lbs_bl_D.setText('-')
+    #     self.lbs_bl_nl.setText('-')
+        
+    #     # Th标签
+    #     self.lbs_th_K.setText('-')
+    #     self.lbs_th_C.setText('-')
+    #     self.lbs_th_D.setText('-')
+    #     self.lbs_th_A.setText('-')
+    #     self.lbs_th_nl.setText('-')
+        
+    #     # PJ/RJ标签
+    #     self.lbs_pjrj_K.setText('-')
+    #     self.lbs_pjrj_C.setText('-')
+    #     self.lbs_pjrj_D.setText('-')
+    #     self.lbs_pjrj_H.setText('-')
+    #     self.lbs_pjrj_B2.setText('-')
+    #     self.lbs_pjrj_d.setText('-')
+    #     self.lbs_pjrj_F.setText('-')
+    #     self.lbs_pjrj_nl.setText('-')
+        
+    #     # IF标签
+    #     self.lbs_if_K.setText("-")
+    #     self.lbs_if_C.setText('-')
+    #     self.lbs_if_D.setText('-')
+    #     self.lbs_if_Smin.setText('-')
+    #     self.lbs_if_nl.setText('-')
+    #     self.lbs_if_N.setText('-')
+        
+    #     # LWN标签
+    #     self.lbs_lwn_K.setText('-')
+    #     self.lbs_lwn_C.setText('-')
+    #     self.lbs_lwn_D.setText('-')
+    #     self.lbs_lwn_H.setText('-')
+    #     self.lbs_lwn_nl.setText('-')
+    #     self.lbs_lwn_N.setText('-')
+        
+    #     # A/B WN标签
+    #     self.lbs_awn_K.setText('-')
+    #     self.lbs_awn_C.setText('-')
+    #     self.lbs_awn_D.setText('-')
+    #     self.lbs_awn_nl.setText('-')
+    #     self.lbs_awn_A.setText('-')
+    #     self.lbs_awn_H.setText('-')
+    #     self.lbs_awn_N.setText('-')
+    #     self.lbs_awn_B.setText('-')
+        
+    #     # A/B BL标签
+    #     self.lbs_abl_K.setText('-')
+    #     self.lbs_abl_C.setText('-')
+    #     self.lbs_abl_D.setText('-')
+    #     self.lbs_abl_nl.setText('-')
+        
+    #     # NBT标签
+    #     self.lbs_nbt_D.setText('-')
+    #     self.lbs_nbt_d.setText('-')
+    #     self.lbs_nbt_h.setText('-')
+    #     self.lbs_nbt_DN.setText('-')
+    #     self.lbs_nbt_D1.setText('-')
+    #     self.lbs_nbt_dta0.setText('-')
+    #     self.lbs_nbt_dta1.setText('-')
+    #     self.lbs_nbt_dta2.setText('-')
+    #     self.lbs_nbt_Th.setText('-')
+        
+    #     # 密封面标签
+    #     self.lbs_mfm.setText('-')
+        
+    #     # 螺栓标签
+    #     self.lbth_rf_lsr.setText('突面<六角头螺栓>/ 长度 -')
+    #     self.lbth_rf_lzr.setText('突面<全螺纹/双头螺柱>/ 长度 -')
+    #     self.lbth_mfm_lzm.setText('凹凸面<全螺纹/双头螺柱>/ 长度 -')
+    #     self.lbth_rj_lzj.setText('环连接面<全螺纹/双头螺柱>/ 长度 -')
+
     def buid_t(self):
         df = None
         if self.cB_t_std.currentText() == 'HGJ514<无缝管><B>_供参考':
@@ -1348,12 +1485,166 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
             self.tW_t.setCurrentIndex(0)
 
 
+def check_license():
+    """
+    检查许可证状态
+    
+    Returns:
+        bool or dict: False表示许可证无效，dict表示许可证有效并包含详细信息
+    """
+    storage_file = "license.dat"
+    key_file = "license.key"
+    
+    # 检查许可证文件是否存在
+    if not os.path.exists(storage_file) or not os.path.exists(key_file):
+        return False
+    
+    try:
+        # 获取本机机器码用于验证
+        local_machine_code = get_machine_code()
+        
+        # 加载加密密钥
+        with open(key_file, "rb") as f:
+            key = f.read()
+        cipher = Fernet(key)
+        
+        # 从文件读取加密数据
+        with open(storage_file, "rb") as f:
+            encrypted_data = f.read()
+        
+        # 解密数据
+        decrypted_data = cipher.decrypt(encrypted_data)
+        
+        # 将JSON字符串转换为字典
+        registration_info = json.loads(decrypted_data.decode('utf-8'))
+        
+        # 检查机器码是否匹配
+        stored_machine_code = registration_info.get('machine_code')
+        if stored_machine_code != local_machine_code:
+            return False
+        
+        # 检查是否过期
+        expiry_date_str = registration_info.get('expiry_date')
+        if not expiry_date_str:
+            return False
+        
+        expiry_date = datetime.strptime(expiry_date_str, "%Y-%m-%d")
+        current_date = datetime.now()
+        
+        # 如果已过期，返回False
+        if current_date > expiry_date:
+            return False
+        
+        # 返回到期日期信息
+        remaining_days = (expiry_date - current_date).days
+        return {
+            'valid': True,
+            'expiry_date': expiry_date_str,
+            'remaining_days': remaining_days
+        }
+        
+    except Exception as e:
+        # 解密或解析失败，许可证无效
+        return False
+
+
+def show_license_validator():
+    """
+    显示许可证验证GUI
+    """
+    try:
+        # 导入并运行许可证验证器
+        from registration_key_validator import main as validator_main
+        validator_main()
+        return True  # 表示验证界面已显示
+    except ImportError:
+        print("无法加载许可证验证器GUI")
+        print("请确保registration_key_validator.py文件存在")
+        return False
+    except Exception as e:
+        print(f"启动许可证验证器时出错: {str(e)}")
+        return False
+
+
+def check_and_run():
+    """
+    检查许可证并运行应用程序
+    """
+    # 首先检查许可证
+    license_result = check_license()
+    
+    # 导入必要的Qt模块
+    import sys
+    from PyQt5.QtWidgets import QApplication, QMessageBox
+    
+    # 确保只有一个QApplication实例
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    
+    while True:  # 循环直到用户选择退出或成功启动
+        if not license_result:
+            # 许可证无效或已过期
+            msg_box = QMessageBox()
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setWindowTitle("许可证验证")
+            msg_box.setText("许可证无效或已过期")
+            msg_box.setInformativeText("点击确定打开许可证验证界面")
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg_box.setDefaultButton(QMessageBox.Ok)
+            
+            ret = msg_box.exec_()
+            if ret == QMessageBox.Ok:
+                # 显示许可证验证GUI
+                show_license_validator()
+                # 验证界面关闭后，重新检查许可证状态
+                license_result = check_license()
+                if license_result:
+                    # 如果现在许可证有效，显示成功信息
+                    msg_box = QMessageBox()
+                    msg_box.setIcon(QMessageBox.Information)
+                    msg_box.setWindowTitle("许可证验证")
+                    msg_box.setText("许可证激活成功")
+                    msg_box.setInformativeText(f"到期时间: {license_result['expiry_date']} (剩余 {license_result['remaining_days']} 天)")
+                    msg_box.setStandardButtons(QMessageBox.Ok)
+                    msg_box.exec_()
+                    # 成功激活后，跳出循环，准备启动主程序
+                    break
+                else:
+                    # 许可证仍然无效，继续循环
+                    continue
+            else:
+                # 用户选择取消，退出程序
+                return False
+        else:
+            # 许可证有效
+            msg_box = QMessageBox()
+            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setWindowTitle("许可证验证")
+            msg_box.setText("许可证有效")
+            msg_box.setInformativeText(f"到期时间: {license_result['expiry_date']} (剩余 {license_result['remaining_days']} 天)")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setDefaultButton(QMessageBox.Ok)
+            
+            msg_box.exec_()
+            # 许可证有效，跳出循环，准备启动主程序
+            break
+    
+    # 如果到达这里，说明许可证已验证通过，可以启动主程序
+    return True
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)  # 创建应用程序
-    myWin = FlangeWindow()  # 创建主窗口对象
-
-    myWin.show()
-
-    sys.exit(app.exec_())
+    result = check_and_run()  # 检查许可证状态
+    if result:  # 如果许可证检查通过，才启动应用程序
+        import sys
+        from PyQt5.QtWidgets import QApplication
+        
+        # 确保只有一个QApplication实例
+        app = QApplication.instance()
+        if app is None:
+            app = QApplication(sys.argv)
+        
+        myWin = FlangeWindow()  # 创建主窗口对象
+        myWin.show()
+        sys.exit(app.exec_())
