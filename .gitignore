@@ -1,1 +1,12 @@
 license.dat
+/dist
+/build
+FlangeSheet.py.backup
+FlangeSheet.spec
+FlangeSheet_fixed.py
+registration_generator.py
+registration_key_validator.py
+registration_key_generator.py
+android_build.py
+/android_project
+license_validator_standalone.py

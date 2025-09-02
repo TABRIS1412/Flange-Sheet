@@ -686,7 +686,9 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_wn_c.setText(str(self.a_flange.sizex.iloc[0].at['C']))
                         self.lbs_wn_d.setText(str(self.a_flange.sizex.iloc[0].at['D']))
                         self.lbs_wn_h.setText(str(self.a_flange.sizex.iloc[0].at['H']))
-                        # self.lbs_wn_h1.setText(str(self.a_flange.sizex.iloc[0].at['H1_mean']))
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['m_kg'])+str(" kg"))
+                        #self.lbs_wn_r.setText(str(self.a_flange.sizex.iloc[0].at['R']))
+                        #self.lbs_wn_h1.setText(str(self.a_flange.sizex.iloc[0].at['H1_mean']))
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_wn_nl.setText(nl)
                         nab = str(self.a_flange.sizex.iloc[0].at['N_A']) \
@@ -705,6 +707,9 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_wn_nl.setText('-')
                         self.lbs_wn_NAB.setText('-')
                         self.lbs_wn_A1AB.setText('-')
+                        self.lbs_wn_r.setText('-')
+                        #self.lbs_mk.setText('-')
+                         
 
                 elif self.cB_tp.currentText() == "带颈平焊<SO>":
                     try:
@@ -712,6 +717,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_so_C.setText(str(self.a_flange.sizex.iloc[0].at['C']))
                         self.lbs_so_D.setText(str(self.a_flange.sizex.iloc[0].at['D']))
                         self.lbs_so_H.setText(str(self.a_flange.sizex.iloc[0].at['H']))
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['m_kg'])+str(" kg"))
                         # self.lbs_wn_h1.setText(str(self.a_flange.sizex.iloc[0].at['H1_mean']))
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_so_nl.setText(nl)
@@ -730,6 +736,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_so_nl.setText('-')
                         self.lbs_so_NAB.setText('-')
                         self.lbs_so_B1_AB.setText('-')
+                        self.lbs_mk.setText('-')
 
                 elif self.cB_tp.currentText() == "承插焊<SW>":
 
@@ -739,6 +746,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_sw_D.setText(str(self.a_flange.sizex.iloc[0].at['D']))
                         self.lbs_sw_H.setText(str(self.a_flange.sizex.iloc[0].at['H']))
                         self.lbs_sw_U.setText(str(self.a_flange.sizex.iloc[0].at['U']))
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['m_kg'])+str(" kg"))
                         # self.lbs_wn_h1.setText(str(self.a_flange.sizex.iloc[0].at['H1_mean']))
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_sw_nl.setText(nl)
@@ -757,6 +765,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_sw_nl.setText('-')
                         self.lbs_sw_N.setText('-')
                         self.lbs_sw_B2.setText('-')
+                        self.lbs_mk.setText('-')
 
                 elif self.cB_tp.currentText() == "板式平焊<PL>":
 
@@ -764,6 +773,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_pl_K.setText(str(self.a_flange.sizex.iloc[0].at['K']))  # 选取第0行某一列的值
                         self.lbs_pl_C.setText(str(self.a_flange.sizex.iloc[0].at['C']))
                         self.lbs_pl_D.setText(str(self.a_flange.sizex.iloc[0].at['D']))
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['m_kg'])+str(" kg"))
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_pl_nl.setText(nl)
                         b1ab = str(self.a_flange.sizex.iloc[0].at['B1_A']) \
@@ -776,6 +786,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_pl_D.setText('-')
                         self.lbs_pl_nl.setText('-')
                         self.lbs_pl_B1AB.setText('-')
+                        self.lbs_mk.setText('-')
 
 
                 elif self.cB_tp.currentText() == "不锈钢衬里法兰盖<BL(S)>":
@@ -797,6 +808,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                             self.lbs_pjse_d.setText(str(self.a_flange.sizex.iloc[0].at['RF_d']))
                             self.lbs_pjse_h.setText(str(self.a_flange.sizex.iloc[0].at['h']))
                             self.lbs_pjse_S1.setText(str(self.a_flange.sizex.iloc[0].at['S1']))
+                            self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['PJ_m_kg'])+str(" kg(PJ)")+str(self.a_flange.sizex.iloc[0].at['SE_m_kg'])+str(" kg(SE)"))
 
                         except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
                             self.lbs_pjse_K.setText('-')
@@ -808,6 +820,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                             self.lbs_pjse_d.setText('-')
                             self.lbs_pjse_h.setText('-')
                             self.lbs_pjse_S1.setText('-')
+                            self.lbs_mk.setText('-')
 
                     elif self.cB_std.currentText() == "HGT20615<class系列>":
                         try:
@@ -825,6 +838,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                             self.lbs_pjsec_h.setText(str(self.a_flange.sizex.iloc[0].at['h']))
                             self.lbs_pjsec_H.setText(str(self.a_flange.sizex.iloc[0].at['H']))
                             self.lbs_pjsec_N.setText(str(self.a_flange.sizex.iloc[0].at['N']))
+                            self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['PJ_m_kg'])+str(" kg(PJ)")+str(self.a_flange.sizex.iloc[0].at['SE_m_kg'])+str(" kg(SE)"))
                             self.lbs_pjsec_S1.setText('-')
 
 
@@ -837,6 +851,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                             self.lbs_pjse_A1.setText('-')
                             self.lbs_pjse_d.setText('-')
                             self.lbs_pjse_h.setText('-')
+                            self.lbs_mk.setText('-')
                             # self.lbs_pjse_S1.setText('-')
 
 
@@ -848,6 +863,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_bl_D.setText(str(self.a_flange.sizex.iloc[0].at['D']))
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_bl_nl.setText(nl)
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['m_kg'])+str(" kg"))
 
                     except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
                         self.lbs_bl_K.setText('-')
@@ -864,9 +880,11 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_th_H.setText(str(self.a_flange.sizex.iloc[0].at['H']))
                         self.lbs_th_N.setText(str(self.a_flange.sizex.iloc[0].at['N']))
                         # self.lbs_wn_h1.setText(str(self.a_flange.sizex.iloc[0].at['H1_mean']))
+                        
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_th_nl.setText(nl)
                         self.lbs_th_LW.setText(str(self.a_flange.sizex.iloc[0].at['LW']))
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['m_kg'])+str(" kg"))
 
                     except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
                         self.lbs_th_K.setText('-')
@@ -876,6 +894,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_th_N.setText('-')
                         self.lbs_th_nl.setText('-')
                         self.lbs_th_LW.setText('-')
+                        self.lbs_mk.setText('-')
 
                 elif self.cB_tp.currentText() == "平焊环松套<PJ/RJ>":
 
@@ -896,6 +915,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_pjrj_B2.setText(b2ab)
                         self.lbs_pjrj_d.setText(str(self.a_flange.sizex.iloc[0].at['H_d']))
                         self.lbs_pjrj_F.setText(str(self.a_flange.sizex.iloc[0].at['F']))
+                        self.lbs_mk.setText(str("法兰质量 ")+str(self.a_flange.sizex.iloc[0].at['PJ_m_kg'])+str(" kg(PJ)")+str(self.a_flange.sizex.iloc[0].at['RJ_m_kg'])+str(" kg(RJ)"))
 
                     except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
                         self.lbs_pjrj_K.setText('-')
@@ -907,6 +927,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_pjrj_B2.setText('-')
                         self.lbs_pjrj_d.setText('-')
                         self.lbs_pjrj_F.setText('-')
+                        self.lbs_mk.setText('-')
 
                 elif self.cB_tp.currentText() == "整体<IF>":
 
@@ -919,6 +940,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         nl = str(self.a_flange.sizex.iloc[0].at['n']) + '×Φ' + str(self.a_flange.sizex.iloc[0].at['L'])
                         self.lbs_if_nl.setText(nl)
                         self.lbs_if_N.setText(str(self.a_flange.sizex.iloc[0].at['N']))
+                        self.lbs_mk.setText('-')
 
                         # self.lbs_wn_s.setText(str(self.a_flange.sizex.iloc[0].at['S_min']))
                     except:  # 标签读不到数的时候，标签要初始化，否则会显示上次的值，错误引导
@@ -928,6 +950,7 @@ class FlangeWindow(QMainWindow, flangeWindow.Ui_flangeWindow):
                         self.lbs_if_Smin.setText('-')
                         self.lbs_if_nl.setText('-')
                         self.lbs_if_N.setText('-')
+                        self.lbs_mk.setText('-')
 
                 elif self.cB_tp.currentText() == "长高颈<LWN>":
 

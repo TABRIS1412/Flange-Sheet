@@ -223,6 +223,7 @@ class Ui_flangeWindow(object):
         self.lbs_wn_d.setAutoFillBackground(False)
         self.lbs_wn_d.setAlignment(QtCore.Qt.AlignCenter)
         self.lbs_wn_d.setObjectName("lbs_wn_d")
+
         self.lbs_wn_NAB = QtWidgets.QLabel(self.tab_wn)
         self.lbs_wn_NAB.setGeometry(QtCore.QRect(210, 105, 120, 12))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -893,6 +894,18 @@ class Ui_flangeWindow(object):
         self.lbth_rf_lzr.setGeometry(QtCore.QRect(20, 470, 351, 16))
         self.lbth_rf_lzr.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.lbth_rf_lzr.setObjectName("lbth_rf_lzr")
+
+        self.lbs_mk = QtWidgets.QLabel(self.tab_mfm_rf)
+        self.lbs_mk.setGeometry(QtCore.QRect(143, 495, 351, 15))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lbs_mk.sizePolicy().hasHeightForWidth())
+        self.lbs_mk.setSizePolicy(sizePolicy)
+        self.lbs_mk.setAutoFillBackground(False)
+        self.lbs_mk.setAlignment(QtCore.Qt.AlignCenter)
+        self.lbs_mk.setObjectName("lbs_mkg")
+
         self.tW_mfm.addTab(self.tab_mfm_rf, "")
         self.tab_mfm_fmm = QtWidgets.QWidget()
         self.tab_mfm_fmm.setObjectName("tab_mfm_fmm")
