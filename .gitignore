@@ -10,3 +10,4 @@ registration_key_generator.py
 android_build.py
 /android_project
 license_validator_standalone.py
+/build/FlangeSheet
