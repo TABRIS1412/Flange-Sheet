@@ -11,3 +11,14 @@ android_build.py
 /android_project
 license_validator_standalone.py
 /build/FlangeSheet
+build/FlangeSheet/Analysis-00.toc
+build/FlangeSheet/base_library.zip
+build/FlangeSheet/EXE-00.toc
+build/FlangeSheet/FlangeSheet.pkg
+build/FlangeSheet/PKG-00.toc
+build/FlangeSheet/PYZ-00.pyz
+dist/FlangeSheet.exe
+dist/license.dat
+dist/license.key
+FlangeSheet.py.backup
+FlangeSheet_fixed.py
